@@ -1,0 +1,96 @@
+use testdb;
+UPDATE  employees
+set city ='Thiruvananthapuram'
+where Id =1;
+
+UPDATE  employees
+set Name ='ASIF'
+where Id =2;
+
+CREATE TABLE demo(
+numID int auto_increment,
+primary key(numID),
+player_name varchar(255)
+);
+
+INSERT INTO demo(player_name)
+values ('DHONI');
+select * from demo;
+
+UPDATE employees
+set Technology = 'SQL',City = 'Thiruvananthapuram'
+where ID = 3;
+
+select * from tutors
+ORDER BY Subject desc,Place desc;
+
+select Subject, count(Subject) as no_of_tutors from tutors
+group by Subject;
+
+select Subject as 'subject', min(Current_age) as 'min_age' from tutors
+group by Subject;
+
+SELECT Subject, MAX(Current_age) as 'Max_AGE' FROM tutors
+group by Subject;
+
+SELECT Subject, avg(Current_age) as 'AVG_AGE' FROM tutors
+group by Subject;
+
+select sum(Current_age) from tutors;
+select avg(Current_age) from tutors;
+select count(distinct subject) from tutors;
+select count(*) from tutors where Current_age<29;
+select min(Current_age) as min_age from tutors;
+select max(Current_age) as max_age from tutors;
+
+select count(Subject) from tutors
+group by Subject 
+Having Subject ='Maths';
+
+create table books(
+Id int auto_increment,
+Book varchar(255),
+tutor_id int,
+cost int,
+primary key(Id)
+);
+
+insert into books(Book,tutor_id,cost)
+values('Bookmath',2,200),
+('Bookeng',4,200),
+('Bookcomp',3,200);
+
+update books
+set cost = 150
+where Id =4;
+select * from books;
+
+select tutors.SlNo,tutors.Name tutors , books.Book,books.cost from tutors
+join books
+on tutors.SlNo = books.tutor_id
+order by SlNo;
+
+select tutors.SlNo,tutors.Name tutors , books.Book,books.cost from tutors
+left join books
+on tutors.SlNo = books.tutor_id
+order by SlNo;
+
+insert into books(Book,tutor_id,cost)
+values('Bookphy',8,500),
+('Bookcomm',9,200),
+('Bookengg',10,600);
+
+select tutors.SlNo,tutors.Name tutors , books.Book,books.cost from tutors
+right join books
+on tutors.SlNo = books.tutor_id;
+
+select tutors.SlNo,tutors.name,books.Book,books.cost from tutors
+left join books
+on tutors.SlNo = books.tutor_id
+UNION
+select tutors.SlNo,tutors.name,books.Book,books.cost from tutors
+right join books
+on tutors.SlNo = books.tutor_id;
+
+
+

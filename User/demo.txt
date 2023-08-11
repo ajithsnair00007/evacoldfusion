@@ -1,0 +1,34 @@
+
+
+
+<cfloop collection="#cart#" item="item">
+    <cfset product = cart[item]>
+    <cfset productid = product.productid>
+
+    <tr id="productrow#product.productid#">
+        <!-- ... (other table cells) ... -->
+        <td>
+            <cfif StructKeyExists(product, 'couponid')>
+                <button class="removeCoupon#product.productid# remcoupon" data-id="#product.productid#">Remove Coupon</button>
+            <cfelse>
+                <button class="applycp selectcp" id="applycp#product.productid#"
+                        data-id="#product.productid#">Select Coupon</button>
+            </cfif>
+        </td>
+        <!-- ... (other table cells) ... -->
+    </tr>
+    <!-- ... (subtotal calculation and other operations) ... -->
+</cfloop>
+
+
+<script>
+    $(document).ready(function () {
+        $('.selectcp').click(function () {
+            var clickedButton = $(this);
+            
+            // Disable other "Select Coupon" buttons
+            $('.selectcp').not(clickedButton).prop('disabled', true);
+        });
+    });
+</script>
+

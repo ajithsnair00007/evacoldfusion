@@ -1,0 +1,38 @@
+body{
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    height: 100vh;
+}
+.updateform{
+    background-color: rgb(115, 241, 231);
+    border: 1px solid rgb(158, 228, 233);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.2);
+}
+.updateform label{
+    display: block;
+    margin-bottom: 10px;
+}
+.updateform input[type="text"],
+.updateform input[type="number"]{
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    background-color: rgb(179, 245, 245);
+}
+.updateform input[type="text"]{
+    background-color: rgb(179, 245, 245);
+}
+.updateform button{
+    background-color: rgb(123, 123, 253);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+}
+.error{
+    color: red;
+}

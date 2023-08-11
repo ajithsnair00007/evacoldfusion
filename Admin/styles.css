@@ -1,0 +1,29 @@
+body{
+    background-color: rgb(210, 248, 235);
+    text-align: center;
+    padding-top: 10%;
+}
+form{
+    text-align: center;
+}
+.uname,.email{
+    margin-left: 22px;
+}
+.success{
+    color:green;
+}
+.emailexist{
+    color: red;
+}
+span{
+    margin-left: 5%;
+    
+}
+
+.errormsg{
+    color: red;
+}
+div.data{
+    color: blueviolet;
+    font-size: 100px;
+}

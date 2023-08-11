@@ -1,0 +1,200 @@
+body{
+    text-align: center;
+    height: auto;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+table{
+    text-align: center;
+    border: 2px solid orange;
+    border-radius: 8px;
+    position: relative;
+    width: 100%;
+}
+
+th,td{
+    padding: 20px;
+}
+th{
+    font-size: 25px;
+    font-weight: bold;
+}
+.clearcart{
+    background-color: orangered;
+    text-decoration: none;
+    width: 100px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    position: absolute;
+    right: 10;
+    padding: 2px;
+    margin-top: 2%;
+    color: white;
+}
+.checkout{
+    background-color: rgb(192, 86, 253);
+    text-decoration: none;
+    width: 100px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    position: absolute;
+    right: 150;
+    padding: 2px;
+    margin-top: 2%;
+    color: white;
+}
+.productname{
+    text-align: start;
+}
+.price{
+    text-align: start;
+}
+#quant{
+    text-align: center;
+    width: 30px;
+}
+.emptycart,.emptycartmsg{
+    font-size: 40px;
+    font-weight: bold;
+    color: blue;
+    background-color: rgb(180, 247, 183);
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    top: 200;
+    right: 500;
+}
+.emptycartmsg{
+    visibility: hidden;
+}
+.removeitem{
+    border: none;
+    border-radius: 5px;
+    background-color: red;
+    color: white;
+    padding: 5px;
+}
+.gobackbtn{
+    background-color: rgb(8, 122, 65);
+    text-decoration: none;
+    width: 100px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    position: absolute;
+    right: 300;
+    top: 0;
+    padding: 2px;
+    margin-top: 1%;
+    color: white;
+}
+.totalsum{
+    font-weight: bold;
+    font-size: larger;
+    position: absolute;
+    right: 200;
+}
+.purchaseItem{
+    background-color: rgb(8, 122, 65);
+    text-decoration: none;
+    width: 100px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    position: absolute;
+    right: 630;
+    margin-top: 15%;
+    padding: 2px;
+    color: white;
+}
+.loader{
+    cursor: wait;
+}
+.applycp{
+    background-color: rgb(95, 4, 95);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+    width: 150px
+}
+.applycp:hover{
+    background-color: rgb(247, 12, 247);
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    border-radius: 5px;
+    border: 2px solid rgb(11, 11, 14);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(205, 231, 243);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    width: 300px;
+    max-width: 80%; 
+    padding: 10px;
+}
+
+.popup form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.popup label,
+.popup select {
+    margin: 5px 0; 
+    
+}
+.popup select{
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    width: 50%;
+    height: 20px;
+}
+.popup button {
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    width: 40%;
+    height: 30px;
+}
+#applyCouponButton{
+    background-color: rgb(5, 92, 19);
+    color: white;
+    cursor: pointer;
+}
+#closeCouponButton{
+    background-color: rgb(247, 10, 10);
+    color: white;
+    cursor: pointer;
+}
+#closeButton{
+    position: absolute;
+    right: 4%;
+    top: 2%;
+    width: 10px;
+    height: 10px;
+    font-size: 30px;
+    font-weight: bolder;
+    cursor: pointer;
+    color: brown;
+}
+.remcoupon{
+    background-color: darkorange;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    width: 150px
+}
+

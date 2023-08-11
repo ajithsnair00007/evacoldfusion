@@ -1,0 +1,36 @@
+body{
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    height: 100vh;
+}
+.signupform{
+    background-color: rgb(115, 241, 231);
+    border: 1px solid rgb(158, 228, 233);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.2);
+    width: 300px;
+}
+.signupform label{
+    display: block;
+    margin-bottom: 10px;
+}
+.signupform input[type="text"],.signupform input[type="email"],.signupform input[type="password"]{   
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    background-color: rgb(179, 245, 245);
+}
+
+.signupform button{
+    background-color: rgb(123, 123, 253);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+}
+.emailexist{
+    color: red;
+}

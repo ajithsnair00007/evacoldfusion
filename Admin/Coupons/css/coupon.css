@@ -1,0 +1,41 @@
+body{
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    height: auto;
+}
+form{
+    background-color: rgb(243, 208, 197);
+    border: none;
+    padding: 40px;
+    border-radius: 5px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.2);
+    width: 300px;
+    height: auto;
+}
+form label{
+    display: block;
+    margin-top: 10px;
+}
+form input,select{
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    padding: 10px;
+}
+form button{
+    margin-top: 10%;
+    background-color: green;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 10px;
+}
+.createcoupon:hover{
+    background-color: rgb(90, 247, 90);
+}
+.status{
+    display: inline-flex;
+    
+}

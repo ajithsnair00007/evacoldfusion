@@ -1,0 +1,87 @@
+body{
+    /* padding: 10px; */
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 2%;
+    row-gap: 0;
+    text-align: center;
+   
+}
+.cart{
+  font-size: 20px;
+  color: crimson;
+  width: 45px;
+  height: 30px;
+  position: absolute;
+  right: 35;
+  top: 10;
+  background-color: beige;
+  border: none;
+  border-radius: 5px;
+} 
+img{
+    height: 150px;
+}
+.card {
+    margin-top: 5%;
+    background-color: white;
+    border: 2px solid rgb(7, 11, 235);
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    width: 300px;
+    height: auto;
+    text-align: center;
+    align-items: center;
+  }
+  
+  .container {
+    width: auto;
+    padding: 10px 16px;
+  }
+  button.addtocart{
+    background-color: rgb(238, 148, 14);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+  }
+  .productname{
+    color: rgb(255, 26, 10);
+  }
+  .price{
+    color: rgb(3, 87, 24);
+  }
+  .loader {
+    margin-left: 45%;
+    align-items: center;
+    border: 5px solid #f3f3f3; /* Light grey */
+    border-top: 5px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .myorders{
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    background-color: green;
+    color: white;
+    position: absolute;
+    right: 100;
+    top: 10;
+  }
+  .myorders:hover{
+    background-color: rgb(60, 219, 60);
+  }
+  a{
+    text-decoration: none;
+    color: white;
+  }
+ 
