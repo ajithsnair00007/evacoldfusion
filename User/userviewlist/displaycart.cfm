@@ -1,4 +1,3 @@
-
 <cfoutput>
 <html>
 <head>
@@ -67,24 +66,8 @@
                    }   
                 }
             });
-            ///restricting to apply only one coupon in a day
-            $.ajax({
-                type:'POST',
-                url:'checkout.cfc?method=restrictApplyCoupon',
-                data:{
-                    id:id,
-                    cartCouponId:cartCouponId
-                },
-                datatype:'json',
-                success:function(response){
-                    let result = JSON.parse(response);
-                    
-                    if(result){
-                        console.log(result.DATE);
-                        $('.applycp').prop('disabled', true);
-                    }
-                }
-            });
+         
+         
         });
 
         // home action
@@ -237,9 +220,9 @@
                         $(`##subtotal${id}`).text(totalprice-percdiscount);
                         $(`##totalsum`).text(`TotalPrice: ${currentTotalSum-percdiscount}`);
                     }
-                    
-                    //create ajax to store cart discount
-                    $.ajax({
+                    if(result.COUPON_OFFER){
+                      //create ajax to store cart discount
+                      $.ajax({
                         type:'POST',
                         url:'../../Admin/Coupons/cfc/add_coupon.cfc?method=applyDiscountToCart',
                         data:{
@@ -253,12 +236,10 @@
                                 console.log(`Discount is :${result.DISCOUNT}`);
                                 
                             }
-
-                        }
-                    })
-
-                    //create ajax to store coupon id in the cart
-                    $.ajax({
+                          }
+                        });
+                       //create ajax to store coupon id in the cart
+                      $.ajax({
                         type:'POST',
                         url:'../../Admin/Coupons/cfc/add_coupon.cfc?method=applyCouponIdToCart',
                         data:{
@@ -268,52 +249,58 @@
                         datatype:'json',
                         success:function(response){
                             let result = JSON.parse(response);
-                            if(result){
-                                console.log(`couponid:${result.COUPONID}`)
+                            if(result.COUPONID){
+                                console.log(`couponid:${result.COUPONID}`);
+                            }
+                            if(result.COUPONDATE){
+                                console.log(result.COUPONDATE);
                             }
                         }
                     });
+                    }
+
+                 
                     //for restricting no of coupon per day
-                     $.ajax({
+                    $.ajax({
                         type:'POST',
-                        url:'../../Admin/Coupons/cfc/add_coupon.cfc?method=restrictCouponperDay',
+                        url:"../../Admin/Coupons/cfc/add_coupon.cfc?method=restrictApplyCoupon",
                         data:{
-                            cartCouponId:cartCouponId,
-                            id:id
+                            id:id,
+                            cartCouponId:cartCouponId
                         },
                         datatype:'json',
                         success:function(response){
-                            let result = JSON.parse(response);
-                            if(result.DATE==result.TODAYDATE){
-                               alert('coupon applied')
-
+                            var result = JSON.parse(response);
+                            if(result.CURRENTDATE==result.CPAPPLIEDDATE){
+                                console.log(result.CPAPPLIEDDATE);
+                                console.log(result.CURRENTDATE);
+                               alert('coupon already applied today');
+                               $('.cprestrict').text('coupon already applied today').css("background-color", "red");
                             }
                         }
                     });
 
-              
-
-                    $('##couponForm select option[value="' + selectedOffer + '"]').remove();
-
+                    if(result.COUPON_OFFER){
+                        $('##couponForm select option[value="' + selectedOffer + '"]').remove();
+                     
                     $(`##applycp${id}`).replaceWith(`<button class="removeCoupon${id} remcoupon"  data-id="${id}">Remove Coupon</button>`);
-                    $('.applycp').prop('disabled', true);
+                    $('.applycp').prop('disabled', true).css({
+                          'pointer-events': 'none',
+                          'opacity': '0.5'
+                      });
+                  
                     $(`##applycp${id}`).removeClass('selectcp');
-
+                    
                     $('##couponPopup').hide();
-             
+                    }
+                    else{
+                        $('.applycp').prop('disabled', true)
+                    }
+                    $('##couponPopup').hide();
                 } 
-       
             }); 
-        //                      $('.selectcp').click(function () {
-        //               var clickedButton = $(this);
-            
-        //     // Disable other "Select Coupon" buttons
-        //     $('.selectcp').not(clickedButton).prop('disabled', true);
-        // });
         });
     
-
-
         // remove coupon action
         $(document).on('click', '.remcoupon', function(){
                             
@@ -325,8 +312,11 @@
                 appliedCoupons.shift();
                 appliedCoupons=[];
                 
-                $('.applycp').prop('disabled', false);
-                
+                $('.applycp').prop('disabled', false).css({
+                    'pointer-events':'auto',
+                    'opacity':'1'
+                });
+                 
                 console.log(appliedCoupons);
                 $(`##discount${id}`).text(discountValue-discountValue);
                 $(`##subtotal${id}`).text(discountValue+subtotalValue);
@@ -407,7 +397,13 @@
            <cfset cart = Session.cart>
         </cfif>
          <cfset totalSum = 0> 
-       
+         <cfset currentdate = dateFormat(now(),"YYYY-MM-DD")>
+
+         <cfquery name="retrievecouponapplieddate" datasource="product_list">
+            SELECT * from orders
+            where couponAppliedOn = <cfqueryparam value="#currentdate#" cfsqltype="cf_sql_date">
+         </cfquery>
+
         <cfloop collection="#cart#" item="item">
             <cfset product = cart[item]>
 <!---             <cfdump  var="#product#">  --->
@@ -428,14 +424,33 @@
                    <cfif StructKeyExists(product, 'couponid')>
                       <button class="removeCoupon#product.productid# remcoupon" 
                         data-id="#product.productid#">Remove Coupon</button>
+                   <cfelseif retrievecouponapplieddate.RecordCount>
+                            <div class="restcp">Today's coupon limit exceeds</div>
                    <cfelse>
-                       <button class="applycp selectcp" id="applycp#product.productid#"
+                   <cfset response = false> 
+                       <cfloop collection="#cart#" item="item">
+                                <cfset cartItem = cart[item]>
+                                <cfif StructKeyExists(cartItem, 'couponid')>
+                                    <cfset response = true>
+                                </cfif>
+                       </cfloop>
+                           <cfif response eq true>  
+                              <button class="applycp selectcp" id="applycp#product.productid#" 
+                                    data-id="#product.productid#" disabled style="pointer-events:none; opacity:0.5;">Select Coupon</button>
+                           </cfif>
+                           <cfif response eq false>
+                               <button class="applycp selectcp" id="applycp#product.productid#" 
+                                    data-id="#product.productid#" style="pointer-events:auto; opacity:1;
+                                    ">Select Coupon</button>
+                           </cfif> 
+
+<!---                    <button class="applycp selectcp" id="applycp#product.productid#"   
                         data-id="#product.productid#" <cfloop collection="#cart#" item="item">
                                                            <cfset cartItem = cart[item]>
                                                            <cfif StructKeyExists(cartItem, 'couponid')>
-                                                           disabled
+                                                           disabled style="pointer-events:none"
                                                            </cfif>
-                                                       </cfloop>>Select Coupon</button>
+                                                       </cfloop>>Select Coupon</button>--->
                    </cfif>
                 </td>
                 <td id="discount#product.productid#" class="discount">#product.discount#</td>
@@ -478,9 +493,20 @@
                 });
             </script>    
       </cfif>
+      <div class="cprestrict"></div>
 </body>
 </html>
 </cfoutput>
+
+
+
+
+
+
+
+
+
+
 
 
 
